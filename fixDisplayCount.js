@@ -1,19 +1,23 @@
 try {
-  fixed=0
-  menus=documentServices.menu.getAll()
+  let fixedCount=0,positiveCount=0,undefinedCount=0
+  const menus=documentServices.menu.getAll()
   menus.map(menu=>
-    menu.items.map(mi=>{
-      if (mi.displayCount===0) {
-        mi.displayCount=undefined;
-        fixed++
-        documentServices.menu.updateItem(menu.id,mi.id,mi)
+    menu.items.map(menuItem=>{
+      if (menuItem.displayCount===0) {
+        menuItem.displayCount=undefined;
+        fixedCount++
+        documentServices.menu.updateItem(menu.id,menuItem.id,menuItem)
+      } else if (menuItem.displayCount>0) {
+        positiveCount++
+      } else if (menuItem.displayCount === undefined){
+        undefinedCount++
       }
-    })
-    )
+    }))
     window.autopilotJsonp({
-      fixed
+      fixedCount,
+      positiveCount,
+      undefinedCount
   })
 } catch (e) {
   window.autopilotJsonp(null, e)
 }
-
