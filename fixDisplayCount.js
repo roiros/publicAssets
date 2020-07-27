@@ -1,5 +1,5 @@
 try {
-  let fixedCount = 0, positiveCount = 0, undefinedCount = 0
+  let fixedCount = 0; let positiveCount = 0; let undefinedCount = 0
   const isMultilingualEnabled = documentServices.language.multilingual.isEnabled()
 
   const menus = documentServices.menu.getAll()
@@ -10,9 +10,9 @@ try {
   itemsByMenu.forEach(({ menuId, items }) => {
     items.forEach(menuItem => {
       if (menuItem.displayCount === 0) {
-        menuItem.displayCount = undefined;
+        menuItem.displayCount = undefined
         fixedCount++
-        //documentServices.menu.updateItem(menuId, menuItem.id, menuItem)
+        // documentServices.menu.updateItem(menuId, menuItem.id, menuItem)
       } else if (menuItem.displayCount > 0) {
         positiveCount++
       } else if (menuItem.displayCount === undefined) {
