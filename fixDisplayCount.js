@@ -1,5 +1,7 @@
 try {
   let fixedCount = 0, positiveCount = 0, undefinedCount = 0
+  const isMultilingualEnabled=documentServices.language.multilingual.isEnabled()
+
   const menus = documentServices.menu.getAll()
   menus.forEach(menu => {
     if (menu.items) {
@@ -29,6 +31,7 @@ try {
     undefinedCount}
 
   window.autopilotJsonp({
+    isMultilingualEnabled,
     fixedCount,
     positiveCount,
     undefinedCount
