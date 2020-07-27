@@ -5,24 +5,17 @@ try {
     if (menu.items) {
       const itemsStack = []
       itemsStack.push(...menu.items)
-      //console.log(itemsStack.length)
 
       while (itemsStack.length) {
         const menuItem = itemsStack.pop()
-        //console.log('menuItem pop')
         if (menuItem.items) {
           itemsStack.push(...menuItem.items)
-          //console.log('sub push',itemsStack.length)
         }
 
         if (menuItem.displayCount === 0) {
           menuItem.displayCount = undefined;
           fixedCount++
           documentServices.menu.updateItem(menu.id, menuItem.id, menuItem)
-          console.log(`
-          documentServices.menu.updateItem(menu.id, menuItem.id, menuItem)
-          documentServices.menu.updateItem(${menu.id}, ${menuItem.id},
-            ${JSON.stringify(_.omit(_.clone(menuItem),'items'),null,2)})`)
         } else if (menuItem.displayCount > 0) {
           positiveCount++
         } else if (menuItem.displayCount === undefined) {
