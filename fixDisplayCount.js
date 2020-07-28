@@ -12,7 +12,7 @@ try {
       if (menuItem.displayCount === 0) {
         menuItem.displayCount = undefined
         fixedCount++
-        // documentServices.menu.updateItem(menuId, menuItem.id, menuItem)
+        documentServices.menu.updateItem(menuId, menuItem.id, menuItem)
       } else if (menuItem.displayCount > 0) {
         positiveCount++
       } else if (menuItem.displayCount === undefined) {
