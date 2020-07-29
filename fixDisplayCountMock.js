@@ -23,7 +23,7 @@ try {
 
   window.autopilotJsonp({
     isMultilingualEnabled,
-    mockRun:true,
+    mockRun: true,
     fixedCount,
     positiveCount,
     undefinedCount

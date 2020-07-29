@@ -21,13 +21,13 @@ try {
     })
   })
 
-  window.autopilotJsonp({
+  window.autopilot.reportResult({
     isMultilingualEnabled,
-    mockRun:false,
+    mockRun: false,
     fixedCount,
     positiveCount,
     undefinedCount
   })
 } catch (e) {
-  window.autopilotJsonp(null, e)
+  window.autopilot.reportError(e)
 }
