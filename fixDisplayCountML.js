@@ -1,17 +1,25 @@
 try {
   let originalFixedCount = 0; let positiveCount = 0; let undefinedCount = 0; let translatedFixedCount = 0
-  const originalLanguage = documentServices.language.original.get()
+  const isMultilingualEnabled = documentServices.language.multilingual.isEnabled()
+  const originalLanguage = isMultilingualEnabled ? documentServices.language.original.get() : { code: undefined }
   const languages = documentServices.language.get()
   const nonOriginalLanguages = languages.filter(language => language.code !== originalLanguage.code)
-
-  const isMultilingualEnabled = documentServices.language.multilingual.isEnabled()
 
   const allMenus = _.map(documentServices.menu.getAll(), 'id')
 
   const getItems = (obj) => { if (obj.items) { return [obj, ...obj.items.map(getItems)] } else return [obj] }
 
-  const itemsByMenuInLang = (langCode, menuId) => ({ menuId, items: _.flatMapDeep(documentServices.multilingual.menu.get(langCode, menuId).items, getItems) })
-  const updateFunctionInLang = (langCode) => _.partial(documentServices.multilingual.menu.updateItem, langCode)
+  const itemsByMenuInLang = (langCode, menuId) => ({
+    menuId,
+    items: _.flatMapDeep(
+      isMultilingualEnabled
+        ? documentServices.multilingual.menu.get(langCode, menuId).items
+        : documentServices.menu.getById(menuId).items
+      , getItems)
+  })
+  const updateFunctionInLang = (langCode) => isMultilingualEnabled
+    ? _.partial(documentServices.multilingual.menu.updateItem, langCode)
+    : documentServices.menu.updateItem
 
   const runUpdateItems = (itemsByMenu, updateFunction, accFunc) => {
     itemsByMenu.forEach(({ menuId, items }) => {
