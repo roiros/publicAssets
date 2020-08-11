@@ -7,7 +7,7 @@ try {
 
   const allMenus = _.map(documentServices.menu.getAll(), 'id')
 
-  const getItems = (obj) => { if (obj.items) { return [obj, ...obj.items.map(getItems)] } else return [obj] }
+  const getItems = obj => [obj, ...obj.items ? obj.items.map(getItems) : []]
 
   const itemsByMenuInLang = (langCode, menuId) => ({
     menuId,
