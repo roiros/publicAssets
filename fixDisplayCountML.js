@@ -3,7 +3,7 @@ try {
   const isMultilingualEnabled = documentServices.language.multilingual.isEnabled()
   const originalLanguage = isMultilingualEnabled ? documentServices.language.original.get() : { code: undefined }
   const languages = documentServices.language.get()
-  const nonOriginalLanguages = languages.filter(language => language.code !== originalLanguage.code)
+  const nonOriginalLanguages = _.reject(languages, language => language.code === originalLanguage.code)
 
   const allMenus = _.map(documentServices.menu.getAll(), 'id')
 
